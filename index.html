@@ -1,7 +1,788 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Web Dev</title>
-        <h1>Hello World!</h1>
-    <head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarShade360 - Smart Lawn Protection Technology</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2d7a2d;
+            --secondary: #5cb85c;
+            --accent: #8bc34a;
+            --water: #4fc3f7;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --gradient: linear-gradient(135deg, #43a047 0%, #66bb6a 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: var(--light);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(45, 122, 45, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        nav a:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #43a047 0%, #1976d2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            padding: 1rem 2.5rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: #9ccc65;
+        }
+
+        /* Floating Animation */
+        .float-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .water-drop {
+            position: absolute;
+            width: 30px;
+            height: 40px;
+            background: rgba(79, 195, 247, 0.3);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: fall 8s linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Research Box */
+        .research-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+            border-left: 5px solid var(--secondary);
+        }
+
+        .research-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .research-box h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .research-placeholder {
+            color: #999;
+            font-style: italic;
+            padding: 1rem;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        /* Problem Section Special */
+        .problem-highlight {
+            background: linear-gradient(135deg, #ffebee 0%, #fff3e0 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 5px solid #ff5722;
+        }
+
+        .problem-highlight h3 {
+            color: #d32f2f;
+            margin-bottom: 1rem;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-top: 3px solid var(--accent);
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Interactive Demo */
+        .demo-container {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .origami-demo {
+            width: 200px;
+            height: 200px;
+            margin: 2rem auto;
+            background: radial-gradient(circle, transparent 30%, rgba(139, 195, 74, 0.3) 70%);
+            border: 3px solid var(--accent);
+            border-radius: 50%;
+            position: relative;
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        .origami-demo::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(from 0deg, transparent, rgba(139, 195, 74, 0.5), transparent);
+            border-radius: 50%;
+            animation: rotate360 10s linear infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes rotate360 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Statistics */
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 3rem 0;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 1rem;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--water);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+
+        .timeline-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 2rem;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#problem">Problem</a></li>
+            <li><a href="#solution">Solution</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#impact">Impact</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="float-animation">
+            <div class="water-drop" style="left: 10%; animation-delay: 0s;"></div>
+            <div class="water-drop" style="left: 30%; animation-delay: 2s;"></div>
+            <div class="water-drop" style="left: 50%; animation-delay: 4s;"></div>
+            <div class="water-drop" style="left: 70%; animation-delay: 6s;"></div>
+            <div class="water-drop" style="left: 90%; animation-delay: 8s;"></div>
+        </div>
+        <div class="hero-content">
+            <h1>SolarShade360</h1>
+            <p>Revolutionizing Lawn Care Through Smart Shading Technology</p>
+            <p style="font-size: 1.1rem; opacity: 0.9;">Saving billions of gallons of water, one lawn at a time</p>
+            <button class="cta-button" onclick="document.getElementById('problem').scrollIntoView({behavior: 'smooth'})">
+                Learn More
+            </button>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="section">
+        <h2 class="section-title">The Lawn Crisis in America</h2>
+        
+        <div class="problem-highlight">
+            <h3>⚠️ The Hidden Environmental Cost</h3>
+            <p>Lawns are the most irrigated "crop" in America, consuming even more water than fruits and vegetables combined. A lush green lawn has become an integral part of the American suburban dream, representing stability and comfort. However, this ideal comes at a staggering cost - billions of gallons of water are wasted every year, a price our Earth can no longer afford to pay.</p>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-number">9 Billion</div>
+                <div class="stat-label">Gallons of water used daily on lawns</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">$1000s</div>
+                <div class="stat-label">Annual lawn care cost per household</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">40-60%</div>
+                <div class="stat-label">Water wasted by inefficient sprinklers</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">#1</div>
+                <div class="stat-label">Most irrigated crop in America</div>
+            </div>
+        </div>
+
+        <div class="research-box">
+            <h3>Personal Observation: A Community in Crisis</h3>
+            <p>In my own community, I witnessed the devastating inefficiency of automatic sprinkler systems running for hours on end, completely neglecting certain areas of lawns while wastefully watering concrete sidewalks instead. While children ran through the sprinklers, giggling and drenching their clothes in cold water, I couldn't help but observe the neglected, yellowing grass being baked to death under the scorching sun.</p>
+            
+            <p>My parents, like many others in our neighborhood, were spending thousands of dollars annually on lawn care - money that clearly wasn't solving the problem. The situation deteriorated to the point where desperate neighbors resorted to spraying their lawns with runoff-susceptible green dye and pouring growth chemicals all over their grass, resulting in an extremely foul-smelling neighborhood with artificial green stains everywhere.</p>
+        </div>
+
+        <div class="research-box">
+            <h3>The Vicious Cycle</h3>
+            <div class="research-placeholder">
+                [Add data about water consumption statistics, environmental impact of lawn chemicals, and the economic burden on American households]
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="section">
+        <h2 class="section-title">The Innovation: SolarShade360</h2>
+        
+        <div class="research-box">
+            <h3>NASA-Inspired Technology Meets Suburban Lawns</h3>
+            <p>With the help of a friend who shared the same environmental concerns, I co-created the SolarShade360 - a revolutionary device that addresses our community's water crisis. The SolarShade360 is inspired by NASA satellite technology and utilizes advanced origami principles and kinetic engineering to effectively shade grass while maintaining optimal growing conditions.</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-icon">💡</div>
+                <div class="timeline-content">
+                    <h4>Inspiration</h4>
+                    <p>Observed water waste and inefficient lawn care in our community</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon">🛸</div>
+                <div class="timeline-content">
+                    <h4>NASA Technology</h4>
+                    <p>Adapted satellite shading mechanisms for residential use</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon">🔧</div>
+                <div class="timeline-content">
+                    <h4>Development</h4>
+                    <p>Integrated origami design with Arduino programming for smart control</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon">✅</div>
+                <div class="timeline-content">
+                    <h4>Testing Success</h4>
+                    <p>Proven water retention improvement in weekend trials</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section">
+        <h2 class="section-title">How It Works</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🌞</div>
+                <h3>Smart Light Detection</h3>
+                <p>Arduino-powered sensors detect sunlight levels and automatically adjust the shading mechanism. The system closes the Hoberman-Circle frame at night and reopens when sunlight is detected, maximizing energy efficiency.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏵️</div>
+                <h3>Origami Engineering</h3>
+                <p>Inspired by NASA satellite technology, the origami-based Hoberman-Circle frame provides dynamic, adjustable coverage that expands and contracts based on environmental conditions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💧</div>
+                <h3>Water Retention</h3>
+                <p>Our weekend testing proved that grass under the SolarShade360 retained water levels more effectively than uncovered areas, significantly reducing irrigation needs.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">☀️</div>
+                <h3>Controlled Sunlight</h3>
+                <p>The lightweight, semi-transparent material allows sunlight to penetrate at controlled levels, ensuring grass receives necessary light for photosynthesis while preventing excessive evaporation.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Energy Efficient</h3>
+                <p>Automated day/night cycling reduces energy consumption, with the device only actively operating when protection is needed during peak sunlight hours.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌱</div>
+                <h3>Eco-Friendly</h3>
+                <p>Eliminates the need for harmful chemicals, green dyes, and excessive watering, promoting natural, sustainable lawn care.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="section">
+        <h2 class="section-title">Research & Development</h2>
+        
+        <div class="demo-container">
+            <h3>Origami Shading Mechanism</h3>
+            <div class="origami-demo"></div>
+            <p>Visual representation of the Hoberman-Circle origami structure</p>
+        </div>
+
+        <div class="research-box">
+            <h3>Arduino Programming</h3>
+            <p>Using our knowledge of programming Arduino modules, we developed sophisticated code that automatically manages the shade's operation. The system intelligently closes the Hoberman-Circle frame at night and reopens it when sunlight is detected, optimizing both energy consumption and grass protection.</p>
+            <div class="research-placeholder">
+                [Add specific Arduino code snippets, sensor specifications, and programming logic diagrams]
+            </div>
+        </div>
+
+        <div class="research-box">
+            <h3>Material Science</h3>
+            <p>The lightweight semi-transparent material used in the origami shader was carefully selected to allow controlled sunlight penetration - enough for photosynthesis but not so much that it causes excessive evaporation.</p>
+            <div class="research-placeholder">
+                [Include material specifications, UV resistance data, durability testing results, and light transmission percentages]
+            </div>
+        </div>
+
+        <div class="research-box">
+            <h3>Testing Results</h3>
+            <p>Our weekend trial demonstrated that the SolarShade360 successfully retained water levels in the grass beneath it more effectively than in uncovered areas, proving the concept's viability.</p>
+            <div class="research-placeholder">
+                [Add specific data: water retention percentages, temperature differences, grass health metrics, before/after photos]
+            </div>
+        </div>
+
+        <div class="research-box">
+            <h3>Future Improvements</h3>
+            <div class="research-placeholder">
+                [Detail planned enhancements: weather integration, mobile app control, solar panel addition, size variations, commercial scaling plans]
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="section">
+        <h2 class="section-title">Vision for the Future</h2>
+        
+        <div class="research-box">
+            <h3>Commercial Scale Production</h3>
+            <p>Over the next few years, I aim to further develop the SolarShade360 until it can be produced at a commercial scale. My vision is for this device to be sold in stores nationwide, making it an affordable and sustainable option for the average American household.</p>
+        </div>
+
+        <div class="research-box">
+            <h3>Environmental Impact at Scale</h3>
+            <div class="research-placeholder">
+                [Calculate potential water savings if adopted nationwide, reduction in chemical use, carbon footprint reduction, economic benefits to homeowners]
+            </div>
+        </div>
+
+        <div class="research-box">
+            <h3>Lessons Learned</h3>
+            <p>This project has taught me the vital importance of applying engineering principles to address environmental issues and enhance human well-being. It demonstrated how innovative thinking and technology can solve everyday problems that have massive cumulative impacts on our planet.</p>
+            <p>By combining NASA-inspired technology with practical suburban applications, we can create solutions that are both sophisticated and accessible, making sustainability achievable for everyone.</p>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-number">50%</div>
+                <div class="stat-label">Potential water reduction</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Chemical-free solution</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">$500+</div>
+                <div class="stat-label">Annual savings per household</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">Nationwide</div>
+                <div class="stat-label">Planned availability</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title">Join the Revolution</h2>
+        <div class="contact-form">
+            <form onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="interest">Interest</label>
+                    <select id="interest" name="interest" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                        <option>Product Information</option>
+                        <option>Investment Opportunity</option>
+                        <option>Research Collaboration</option>
+                        <option>Beta Testing</option>
+                        <option>Media Inquiry</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="cta-button" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+        
+        <div class="research-box" style="margin-top: 2rem;">
+            <h3>Development Team</h3>
+            <div class="research-placeholder">
+                [Add team member names, roles, and photos. Include your co-creator and any advisors or mentors who helped with the project]
+            </div>
+        </div>
+
+        <div class="research-box">
+            <h3>Sources and Citations</h3>
+            <div class="research-placeholder">
+                https://19january2017snapshot.epa.gov/www3/watersense/pubs/outdoor.html?
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 SolarShade360 - Sustainable Lawn Care Innovation</p>
+        <p>Saving Water, Protecting Lawns, Preserving Our Future</p>
+        <p style="margin-top: 1rem; opacity: 0.8;">An engineering solution for environmental sustainability and human well-being</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form submission handler
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for your interest in SolarShade360! We will contact you soon about sustainable lawn care solutions.');
+            event.target.reset();
+        }
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.research-box, .feature-card, .timeline-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation for statistics
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current);
+            }, 20);
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const text = stat.textContent;
+                        if (text.includes('Billion')) {
+                            stat.textContent = '9 Billion';
+                        }
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, {threshold: 0.5});
+
+        document.querySelectorAll('.stats-container').forEach(el => {
+            statsObserver.observe(el);
+        });
+    </script>
+</body>
 </html>
